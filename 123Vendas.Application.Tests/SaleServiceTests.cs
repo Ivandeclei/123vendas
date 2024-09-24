@@ -185,14 +185,14 @@ namespace _123Vendas.Application.Tests
             var actionEvent = _fixture.Create<ActionEventEnum>();
             var sale = _fixture.Create<Sale>();
 
-            _queueMock.Setup(x => x.publishAsync(It.IsAny<MessageQueue>()))
+            _queueMock.Setup(x => x.PublishAsync(It.IsAny<MessageQueue>()))
                 .Returns(Task.CompletedTask);
 
             // Act
             await _saleService.SaveSaleAsync(sale);
 
             // Assert
-            _queueMock.Verify(x => x.publishAsync(It.IsAny<MessageQueue>()), Times.Once);
+            _queueMock.Verify(x => x.PublishAsync(It.IsAny<MessageQueue>()), Times.Once);
         }
 
     }

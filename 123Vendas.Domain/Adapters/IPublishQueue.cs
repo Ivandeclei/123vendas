@@ -4,6 +4,6 @@ namespace _123Vendas.Domain.Adapters
 {
     public interface IPublishQueue
     {
-        Task publishAsync(MessageQueue messageQueue);
+        Task PublishAsync(MessageQueue messageQueue);
     }
 }
