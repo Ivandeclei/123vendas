@@ -1,0 +1,6 @@
+@_123VendasApplication_HostAddress = http://localhost:5148
+
+GET {{_123VendasApplication_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
