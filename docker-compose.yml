@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  123vendasapplication:
+    image: ${DOCKER_REGISTRY-}123vendasapplication
+    build:
+      context: .
+      dockerfile: 123VendasApplication/Dockerfile
