@@ -148,10 +148,10 @@ namespace _123Vendas.Application
 
         private async void  publishQueueAsync(MessageQueue messageQueue)
         {
-            _logger.LogInformation("Start method " + nameof(IPublishQueue.publishAsync) + "with " + messageQueue);
+            _logger.LogInformation("Start method " + nameof(IPublishQueue.PublishAsync) + "with " + messageQueue);
             try
             {
-                await _queue.publishAsync(messageQueue);
+                await _queue.PublishAsync(messageQueue);
 
             }
             catch (Exception ex )

@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PublishQueueAdapter\PublishQueueAdapter.csproj" />
     <ProjectReference Include="..\123Vendas.Application\123Vendas.Application.csproj" />
     <ProjectReference Include="..\123Vendas.DbAdapter\123Vendas.DbAdapter.csproj" />
     <ProjectReference Include="..\123Vendas.Domain\123Vendas.Domain.csproj" />
