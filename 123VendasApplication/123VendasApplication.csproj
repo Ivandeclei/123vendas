@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
+    <InvariantGlobalization>false</InvariantGlobalization>
     <RootNamespace>_123VendasApplication</RootNamespace>
     <UserSecretsId>66d62cf0-295b-4864-94c9-d149121c1efe</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>

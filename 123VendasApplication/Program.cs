@@ -3,6 +3,8 @@ using _123Vendas.DbAdapter;
 using _123Vendas.DbAdapter.DbAdapterConfiguration;
 using _123Vendas.Domain.Adapters;
 using _123Vendas.Domain.Services;
+using _123VendasApplication;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PublishQueueAdapter;
@@ -11,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<Context>();
 // Add DbContext with connection string from appsettings.json
-var connectionString = builder.Configuration.GetSection("DbAdapterConfiguration:SqlConnectionString").Value;
+var connectionString = builder.Configuration.GetSection("DbAdapterConfiguration:ConnectionString").Value;
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<Context>(options =>
               options.UseSqlServer(connectionString, c => c.MigrationsAssembly(typeof(Context).Assembly.FullName)));
@@ -19,6 +21,8 @@ builder.Services.AddDbContext<Context>(options =>
 // Configurações do RabbitMQ
 builder.Services.AddSingleton<ConfigurationRabbitMq>();
 builder.Services.AddScoped<IPublishQueue, PublishMessageQueueAdapter>();
+
+
 
 builder.Services.AddCors(options =>
 {
@@ -44,10 +48,13 @@ builder.Services.AddScoped(typeof(ISaleWriteAdapter), typeof(SaleWriteAdapter));
 
 builder.Services.AddTransient<ISaleService, SaleService>();
 
+builder.Services.AddAutoMapper(typeof(WebApiMapperProfile),
+                typeof(IMapper));
+
+builder.Services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
 var app = builder.Build();
 
-
-//builder.Services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
