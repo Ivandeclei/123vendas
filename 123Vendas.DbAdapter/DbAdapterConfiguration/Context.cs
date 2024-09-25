@@ -19,23 +19,20 @@ namespace _123Vendas.DbAdapter.DbAdapterConfiguration
             modelBuilder.HasDefaultSchema("vendas");
 
             modelBuilder.Entity<Sale>()
-                .Property(s => s.Client.Name)
-                .HasMaxLength(255)
-                .IsRequired();
+                .Property(s => s.Id)
+                .ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<Sale>()
-                .Property(s => s.BranchStore.NameStore)
-                .HasMaxLength(255)
-                .IsRequired();
+            modelBuilder.Entity<BranchStore>()
+                .Property(b => b.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Client>()
+                .Property(c => c.Id)
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Product>()
-                .Property(p => p.Name)
-                .HasMaxLength(255)
-                .IsRequired();
-
-            modelBuilder.Entity<LoggerApplication>()
-                .Property(l => l.Client)
-                .HasMaxLength(255);
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Sale>()
                 .HasOne(s => s.Client)
@@ -51,7 +48,6 @@ namespace _123Vendas.DbAdapter.DbAdapterConfiguration
                 .HasMany(s => s.Products)
                 .WithOne()
                 .HasForeignKey("SaleId");
-
 
             base.OnModelCreating(modelBuilder);
         }

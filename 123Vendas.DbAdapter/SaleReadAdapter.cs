@@ -16,12 +16,18 @@ namespace _123Vendas.DbAdapter
         }
         public async Task<IEnumerable<Sale>> GetAllAsync()
         {
-            return await _sale.ToListAsync();
+            return await _sale
+                .Include(c => c.Client)
+                .Include(p => p.Products)
+                .Include(b => b.BranchStore).ToListAsync();
         }
 
         public async Task<Sale> GetByIdAsync(Guid id)
         {
-            return await _sale.SingleOrDefaultAsync(x => x.Id == id);
+            return await _sale
+                .Include(c => c.Client)
+                .Include(p => p.Products)
+                .Include(b => b.BranchStore).SingleOrDefaultAsync(x => x.Id == id);
         }
     }
 }
