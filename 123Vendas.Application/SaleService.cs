@@ -39,7 +39,7 @@ namespace _123Vendas.Application
                 }
 
                 await _saleWriteAdapter.DeleteAsync(id);
-                var messageQueue = CreateObject(sale, ActionEventEnum.DeletedSale);
+                var messageQueue = CreateObject(sale, ActionEventEnum.DeletedSale, CommonConstants.PURCHASE_CANCELED_ROUTING_KEY);
                 publishQueueAsync(messageQueue);
 
             }
@@ -106,7 +106,7 @@ namespace _123Vendas.Application
             try
             {
                 await _saleWriteAdapter.SaveAsync(sale);
-                var messageQueue = CreateObject(sale, ActionEventEnum.CreatedSale);
+                var messageQueue = CreateObject(sale, ActionEventEnum.CreatedSale, CommonConstants.PURCHASE_CREATED_ROUTING_KEY);
                 publishQueueAsync(messageQueue);
 
             }
@@ -127,7 +127,7 @@ namespace _123Vendas.Application
             try
             {
                 await _saleWriteAdapter.UpdateAsync(sale);
-                var messageQueue = CreateObject(sale, ActionEventEnum.UpdatedSale);
+                var messageQueue = CreateObject(sale, ActionEventEnum.UpdatedSale, CommonConstants.PURCHASE_MODIFIED_ROUTING_KEY);
                 publishQueueAsync(messageQueue);
 
             }
@@ -161,12 +161,13 @@ namespace _123Vendas.Application
             }
         }
 
-        private MessageQueue CreateObject( Sale sale, ActionEventEnum actionEvent)
+        private MessageQueue CreateObject( Sale sale, ActionEventEnum actionEvent, string routingKey)
         {
             return new MessageQueue
             {
                 Sale = sale,
-                Status = actionEvent
+                Status = actionEvent,
+                RoutingKey = routingKey
             };
         }
     }

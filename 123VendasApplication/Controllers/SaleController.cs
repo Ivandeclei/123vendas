@@ -1,6 +1,7 @@
 ﻿using _123Vendas.Domain.Models;
 using _123Vendas.Domain.Services;
 using _123VendasApplication.Constants;
+using _123VendasApplication.Dto;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,8 @@ namespace _123VendasApplication.Controllers
     {
         private readonly ISaleService _saleService;
         private readonly IMapper _mapper;
-        public SaleController(ISaleService saleService, IMapper mapper)
+        public SaleController(ISaleService saleService, IMapper mapper
+            )
         {
             _saleService = saleService;
             _mapper = mapper;
@@ -36,9 +38,19 @@ namespace _123VendasApplication.Controllers
 
         [HttpPost]
         [Route(UriTemplates.SALE)]
-        public async Task<IActionResult> CreateProjectAsync([FromBody] Sale sale)
+        public async Task<IActionResult> CreateSaleAsync([FromBody] SaleDto saleDto)
         {
+            var sale = _mapper.Map<Sale>(saleDto);
             await _saleService.SaveSaleAsync(sale);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route(UriTemplates.SALE)]
+        public async Task<IActionResult> UpdateSaleAsync([FromBody] SalePutDto salePutDto)
+        {
+            var sale = _mapper.Map<Sale>(salePutDto);
+            await _saleService.UpdateSaleAsync(sale);
             return Ok();
         }
 

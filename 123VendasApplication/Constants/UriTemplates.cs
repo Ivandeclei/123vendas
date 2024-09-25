@@ -5,8 +5,8 @@
         /// <summary>
         /// Routes for sale
         /// </summary>
-        public const string SALE = "/sle";
-        public const string SALE_FIND_BY_ID = "/task/id";
+        public const string SALE = "/sale";
+        public const string SALE_FIND_BY_ID = "/sale/id";
 
         
     }
