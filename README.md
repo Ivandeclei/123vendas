@@ -2,6 +2,7 @@
 Prototipo para gerenciamento de vendas
 ## Fase 1: Execução da aplicação
 **Ir no diretorio onde foi baixado a aplicação e rodar o comando para subir a aplicação nos containers**
+
     - docker-compose up --build
     - Após todas as aplicações ficarem rodando no docker é necessario abrir o visual studio para executar as migrations
     
