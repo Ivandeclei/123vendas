@@ -8,6 +8,7 @@ Prototipo para gerenciamento de vendas
     
 **Abrir a ferramenta de acesso a banco de dados de sua preferencia e colocar os dados de acesso da connection string**
 
+    - O Banco de dados será criado ao rodar a aplicação e executará as migrações
     - Verificar se o banco de dados [ vendas ] foi criado
     - caso não tenha sido criado, realizar a criação do mesmo por meio da aplicação cliente escolhida.
     
@@ -17,6 +18,7 @@ Prototipo para gerenciamento de vendas
     - as exchanges e filas serão criadas no momento que a aplicação for executada
     
 **Executando migrations**  
+Ao executar a aplicação sera criado o banco de dados  e será executado as migrations, se o mesmo não ocorrer é necessario realizar os passos abaixo.
 Abrir o Package Manager Console e executar os seguintes comandos
 **
 - add-migration <NOME-DA-MIGRATION>
@@ -25,7 +27,7 @@ Abrir o Package Manager Console e executar os seguintes comandos
 ## Fase 2: Melhorias no código
 
 1. **Melhorias**
-   - Executar migrations pelo exec do docker
+   - Verificar a possibilidade de Executar migrations pelo exec do docker
    - Verificar e obter mais informações em relação a proposta da aplicação para definir o melhor banco de dados, talvez o uso de um banco não relacional
    - Verificar como seria a relação melhor dos itens para vendas para poder aplicar os Principios SOLID com mais eficacia.
 
