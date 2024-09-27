@@ -12,7 +12,7 @@ using PublishQueueAdapter;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<Context>();
-// Add DbContext with connection string from appsettings.json
+
 var connectionString = builder.Configuration.GetSection("DbAdapterConfiguration:ConnectionString").Value;
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<Context>(options =>
@@ -21,7 +21,6 @@ builder.Services.AddDbContext<Context>(options =>
 // Configurações do RabbitMQ
 builder.Services.AddSingleton<ConfigurationRabbitMq>();
 builder.Services.AddScoped<IPublishQueue, PublishMessageQueueAdapter>();
-
 
 
 builder.Services.AddCors(options =>
@@ -54,6 +53,15 @@ builder.Services.AddAutoMapper(typeof(WebApiMapperProfile),
 builder.Services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
 var app = builder.Build();
+
+// Migrate database
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<Context>();
+    // Criar o banco de dados se ele não existir e executa migration
+    dbContext.Database.EnsureCreated();
+
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
